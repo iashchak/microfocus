@@ -1,0 +1,30 @@
+<div class="container d-flex align-items-center justify-content-center">
+  <form (input)="change()" (ngSubmit)="login()" [formGroup]="loginForm">
+    <div class="form-group">
+      <label for="userName">User Name</label>
+      <input
+        [class.is-invalid]="isInvalid$ | async"
+        class="form-control"
+        formControlName="username"
+        id="userName"
+        name="username"
+      />
+      <div class="row">
+        <div class="col-lg-6 offset-lg-6">
+          <div class="d-flex justify-content-end pt-2">
+            <button
+              [disabled]="!loginForm.valid"
+              class="btn btn-primary"
+              type="submit"
+            >
+              Log In
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="invalid-feedback">
+        Not a valid user name!
+      </div>
+    </div>
+  </form>
+</div>

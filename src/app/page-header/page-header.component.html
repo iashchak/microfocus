@@ -1,0 +1,67 @@
+<div
+  class="container d-flex sticky-top flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow"
+>
+  <div
+    class="d-flex flex-column flex-md-row align-items-center mr-md-auto text-dark"
+  >
+    <h1 class="font-weight-normal">
+      <span>{{ title || "Page" }} </span>
+    </h1>
+    <div *ngIf="showToHomeButton" class="px-md-4">
+      <a [routerLink]="['/']">Back to Home</a>
+    </div>
+  </div>
+  <ng-container *ngIf="showUserInfo" [ngSwitch]="isLoggedIn">
+    <nav
+      *ngSwitchCase="true"
+      class="d-flex flex-column flex-md-row align-items-center justify-content-md-between text-dark"
+    >
+      <div class="py-2 pr-md-4">Welcome, {{ currentUser?.name }}!</div>
+      <div class="py-2 pr-md-4">
+        <a class="btn btn-outline-primary" routerLink="/post">New Post</a>
+      </div>
+      <a (click)="logout.emit()" class="btn btn-outline-primary" href="#"
+        >Log Out</a
+      >
+    </nav>
+    <nav
+      *ngSwitchDefault
+      class="d-flex flex-column flex-md-row align-items-center text-dark"
+    >
+      <div class="px-md-4">You are not logged in</div>
+      <a [routerLink]="['/login']" class="btn btn-outline-primary">Log In</a>
+    </nav>
+  </ng-container>
+</div>
+<div class="container">
+  <div
+    *ngFor="let message of messages"
+    [class.alert-danger]="message.typeOfMessage === 'danger'"
+    [class.alert-primary]="message.typeOfMessage === 'info'"
+    [class.alert-success]="message.typeOfMessage === 'success'"
+    class="alert alert-dismissible fade show"
+    role="alert"
+  >
+    <h4 *ngIf="message.title" class="alert-heading">{{ message.title }}</h4>
+    <p *ngIf="message.description">{{ message.description }}</p>
+    <button
+      (click)="removeMessage.emit(message.id)"
+      aria-label="Close"
+      class="close"
+      data-dismiss="alert"
+      type="button"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="py-2">
+    <button
+      (click)="removeAllMessages.emit()"
+      *ngIf="messages?.length > 1"
+      class="btn btn-light"
+      type="button"
+    >
+      Remove all messages
+    </button>
+  </div>
+</div>

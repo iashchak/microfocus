@@ -1,0 +1,71 @@
+<ng-container *ngIf="users$ | async as users">
+  <ng-container *ngIf="page$ | async as page">
+    <div class="container">
+      <table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Post</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let post of posts$ | async as posts">
+            <td>
+              <div
+                *ngIf="getUser(post, users) as user"
+                class="d-flex flex-column justify-content-center"
+              >
+                <strong>{{ user.name }}</strong>
+                <a [attr.href]="'http://' + user.website" target="_blank">
+                  {{ user.company.name }}
+                </a>
+              </div>
+            </td>
+            <td>
+              <h5>
+                <ng-container
+                  *ngIf="
+                    currentUser$ | async as currentUser;
+                    else notAuthorized
+                  "
+                >
+                  <ng-container
+                    *ngIf="post?.userId === currentUser?.id; else notAuthorized"
+                  >
+                    <a [routerLink]="['/post', post.id]">
+                      {{ post.title }}
+                    </a>
+                  </ng-container>
+                </ng-container>
+                <ng-template #notAuthorized>{{ post.title }}</ng-template>
+              </h5>
+              <p>{{ post.body }}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-container *ngIf="total$ | async as total">
+        <div class="d-flex justify-content-end">
+          <ul class="pagination pagination-sm">
+            <li *ngIf="page <= 1" class="page-item">
+              <a class="page-link" disabled>◀</a>
+            </li>
+            <li *ngIf="page > 1" class="page-item">
+              <a [queryParams]="{ page: page - 1 }" class="page-link" routerLink
+                >◀</a
+              >
+            </li>
+            <li *ngIf="(page + 1) * ITEMS_PER_PAGE >= total" class="page-item">
+              <a class="page-link" disabled="">▶</a>
+            </li>
+            <li *ngIf="(page + 1) * ITEMS_PER_PAGE < total" class="page-item">
+              <a [queryParams]="{ page: page + 1 }" class="page-link" routerLink
+                >▶</a
+              >
+            </li>
+          </ul>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-container>

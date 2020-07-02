@@ -1,0 +1,11 @@
+<app-page-header
+  (logout)="logout()"
+  (removeAllMessages)="removeAllMessages()"
+  (removeMessage)="removeMessage($event)"
+  [showToHomeButton]="showToHomeButton$ | async"
+  [showUserInfo]="showUserInfo$ | async"
+  [messages]="messages$ | async"
+  [currentUser]="currentUser$ | async"
+  [title]="pageTitle"
+></app-page-header>
+<router-outlet></router-outlet>
