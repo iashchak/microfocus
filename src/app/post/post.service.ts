@@ -76,7 +76,7 @@ export class PostService {
     if (
       !this.windowObject.confirm('Are you sure you want to delete this post?')
     ) {
-      return of(false);
+      return of();
     }
     return this.getPosts().pipe(
       take(1),

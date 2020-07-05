@@ -7,7 +7,9 @@
  */
 exports.config = {
   allScriptsTimeout: 11000,
+  getPageTimeout: 11000,
   specs:['features/**/*.feature'],
+  restartBrowserBetweenTests: true,
   capabilities: {
     browserName: 'chrome'
   },

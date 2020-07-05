@@ -13,7 +13,7 @@
         id="title"
         type="text"
       />
-      <div class="invalid-feedback text-right">
+      <div class="invalid-feedback text-right" id="title-error">
         The title cannot exceed more than 200 characters!
       </div>
     </div>
@@ -25,14 +25,19 @@
         formControlName="message"
         id="message"
       ></textarea>
-      <div class="invalid-feedback text-right">
+      <div class="invalid-feedback text-right" id="message-error">
         The message cannot exceed more than 2000 characters!
       </div>
     </div>
     <div class="row pt-2">
       <div class="col-lg-6">
         <div *ngIf="isEdit$ | async" class="d-flex justify-content-start">
-          <button (click)="askForDelete()" class="btn btn-danger" type="button">
+          <button
+            (click)="askForDelete()"
+            class="btn btn-danger"
+            type="button"
+            id="delete"
+          >
             Delete
           </button>
         </div>
@@ -43,6 +48,7 @@
             [disabled]="postForm.invalid || (notChanged$ | async)"
             class="btn btn-primary"
             type="submit"
+            id="save"
           >
             Save
           </button>
@@ -50,9 +56,10 @@
         <div class="d-flex justify-content-end">
           <button
             (click)="resetForm()"
-            [disabled]="notChanged$ | async"
+            [disabled]="postForm.invalid || (notChanged$ | async)"
             class="btn btn-light"
             type="button"
+            id="cancel"
           >
             Cancel
           </button>

@@ -25,15 +25,6 @@
 
 ![new post screenshot](./docs/screenshots/new-post.png)
 
-## TODO
-- [X] Store authorization
-- [X] modal windows
-- [X] Guards for unloginned users
-- [X] Guards for unauthorized users
-- [X] Refresh page after logout
-- [ ] Spec reqs
-- [ ] E2E coverage 
-
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

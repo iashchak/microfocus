@@ -1,52 +1,83 @@
 Feature: Post Edit
 
   Scenario: All fields are present
-    When the user is logged in
-    And click to edit post ""
-    Then the Title field is present
-    Then the Message field is present
-    Then the Delete button is present
-    Then the Save button is present
-    Then the Cancel button is present
-    Then the “Go back to Home page” link is present
+    Given the login page
+    Then fill the field #userName with value Bret
+    Then press the #login button
+    Then click on title of the post #1
+    Then page contains #title field
+    Then page contains #message field
+    Then page contains #delete button
+    Then page contains #save button
+    Then page contains #cancel button
+    Then page contains #header-link-to-home button
 
   Scenario: Incorrent fields
-    When the user is logged in
-    And click to edit post ""
-    Then Fill the title field with 201 characters
-    Then Fill the message field with 2001 characters
-    Then the title validation error should appear below the field that is in error
-    Then the message validation error should appear below the field that is in error
-    Then Save and Cancel buttons should be disabled
+    Given the login page
+    Then fill the field #userName with value Bret
+    Then press the #login button
+    Then click on title of the post #1
+    Then fill the field #title with 201 characters
+    Then fill the field #message with 2001 characters
+    Then a message #title-error should be displayed
+    Then a message #message-error should be displayed
+    Then button #save should be disabled
+    Then button #cancel should be disabled
 
   Scenario: Correct fields
-    When the user is logged in
-    Then click to edit post ""
-    Then fill the title field with 199 characters
-    Then fill the message field with 1999 characters
-    Then Save and Cancel buttons should be enabled
+    Given the login page
+    Then fill the field #userName with value Bret
+    Then press the #login button
+    Then click on title of the post #1
+    Then fill the field #title with 1 characters
+    Then fill the field #message with 1 characters
+    Then button #save should be enabled
+    Then button #cancel should be enabled
 
   Scenario: Leaving the post editing
-    When the user is logged in
-    And click to edit post ""
-    And fill the title field with 199 characters
-    And fill the message field with 1990 characters
-    And clicking on “Go back to home page”
-    Then display a confirmation dialog and allow the user to remain on the page
+    Given the login page
+    Then fill the field #userName with value Bret
+    Then press the #login button
+    Then click on title of the post #1
+    Then fill the field #title with 1 characters
+    Then fill the field #message with 1 characters
+    Then button #save should be enabled
+    Then button #cancel should be enabled
 
   Scenario: Deleting the post
-    When the user is logged in
-    And click to edit post ""
-    And fill the title field with 199 characters
-    And fill the message field with 1990 characters
-    And click on the "delete"
-    Then show a confirmation window, e.g. “Are you sure you want to delete this post?”
+    Given the login page
+    Then fill the field #userName with value Bret
+    Then press the #login button
+    Then click on title of the post #1
+    Then fill the field #title with 1 characters
+    Then fill the field #message with 1 characters
+    Then button #save should be enabled
+    Then button #cancel should be enabled
+    Then button #delete should be enabled
+    Then press the #delete button
+    Then answer "cancel" for alert
+    Then page contains #delete button
+    Then button #delete should be enabled
+    Then press the #delete button
+    Then answer "apply" for alert
+    Then home page is opened
+    Then a message #message-1 should be displayed
+    Then press the #delete-message-1 button
+    Then 1 row and 1 column contains the user name - Leanne Graham and the company name - Romaguera-Crona
+    Then 1 row and 2 column contains the title - qui est esse and the content - est rerum tempore vitae sequi sint nihil reprehenderit dolor beatae ea dolores neque fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis qui aperiam non debitis possimus qui neque nisi nulla
 
   Scenario: Update the post
-    When the user is logged in
-    And click to edit post ""
-    And fill the title field with 199 characters
-    And fill the message field with 1990 characters
-    And clicking on “Save"
-    And the user should be sent back to the Home page
-    And  the message indicating that the post was saved is displayed
+    Given the login page
+    Then fill the field #userName with value Bret
+    Then press the #login button
+    Then click on title of the post #1
+    Then fill the field #title with 1 characters
+    Then fill the field #message with 1 characters
+    Then button #save should be enabled
+    Then button #cancel should be enabled
+    Then press the #save button
+    And home page is opened
+    Then 1 row and 1 column contains the user name - Leanne Graham and the company name - Romaguera-Crona
+    Then 1 row and 2 column contains the title - # and the content - #
+    Then a message #message-1 should be displayed
+    Then press the #delete-message-1 button
