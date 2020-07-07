@@ -1,4 +1,5 @@
 # MicroFocus
+![CI](https://github.com/iashchak/microfocus/workflows/CI/badge.svg)
 
 ## Angular application which does the following:
 1. Displays a list of message posts
